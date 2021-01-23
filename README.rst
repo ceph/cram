@@ -37,6 +37,7 @@ Here's a snippet from `Cram's own test suite`_::
         -y, --yes           answer yes to all questions
         -n, --no            answer no to all questions
         -E, --preserve-env  don't reset common environment variables
+        -e, --error-dir     where to store the *.err files (default next to *.t)
         --keep-tmpdir       keep temporary directories
         --shell=PATH        shell to use for running tests (default: /bin/sh)
         --shell-opts=OPTS   arguments to invoke shell with

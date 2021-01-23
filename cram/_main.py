@@ -95,6 +95,8 @@ def _parseopts(args):
                  help='answer no to all questions')
     p.add_option('-E', '--preserve-env', action='store_true',
                  help="don't reset common environment variables")
+    p.add_option('-e', '--error-dir', action='store', metavar='PATH',
+                 help='where to store the *.err files (default next to *.t)')
     p.add_option('--keep-tmpdir', action='store_true',
                  help='keep temporary directories')
     p.add_option('--shell', action='store', default='/bin/sh', metavar='PATH',
@@ -186,7 +188,8 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
                          cleanenv=not opts.preserve_env, debug=opts.debug)
         if not opts.debug:
             tests = runcli(tests, quiet=opts.quiet, verbose=opts.verbose,
-                           patchcmd=patchcmd, answer=answer)
+                           patchcmd=patchcmd, answer=answer,
+                           error_dir=opts.error_dir)
             if opts.xunit_file is not None:
                 tests = runxunit(tests, opts.xunit_file)
 

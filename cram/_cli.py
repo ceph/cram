@@ -54,7 +54,8 @@ def _patch(cmd, diff):
     out, retcode = execute([cmd, '-p0'], stdin=b('').join(diff))
     return retcode == 0
 
-def runcli(tests, quiet=False, verbose=False, patchcmd=None, answer=None):
+def runcli(tests, quiet=False, verbose=False, patchcmd=None, answer=None,
+           error_dir=None):
     """Run tests with command line interface input/output.
 
     tests should be a sequence of 2-tuples containing the following:
@@ -87,7 +88,11 @@ def runcli(tests, quiet=False, verbose=False, patchcmd=None, answer=None):
                 return refout, postout, diff
 
             abspath = os.path.abspath(path)
-            errpath = abspath + b('.err')
+            if error_dir is not None:
+                errpath = os.path.join(error_dir.encode(),
+                                       os.path.basename(path) + b'.err')
+            else:
+                errpath = abspath + b('.err')
 
             if postout is None:
                 skipped[0] += 1
